@@ -25,24 +25,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: lts/*
-          cache: npm
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm install
+        run: bun ci
 
       - name: Build AIONOS AIR
-        run: npm run build
+        run: bun run build
 
-      - name: Setup Pages
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload dist
+      - name: Upload build
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
